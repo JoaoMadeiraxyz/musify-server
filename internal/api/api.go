@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log/slog"
 	"net/http"
 	"sync"
 
@@ -42,6 +43,7 @@ func NewHandler(q *pgstore.Queries) http.Handler {
 	r.Route("/api", func(r chi.Router) {
 		r.Route("/users", func(r chi.Router) {
 			r.Post("/", a.handleCreateUser)
+			r.Get("/", a.handleGetUsers)
 		})
 	})
 
@@ -50,3 +52,17 @@ func NewHandler(q *pgstore.Queries) http.Handler {
 }
 
 func (h apiHandler) handleCreateUser(w http.ResponseWriter, r *http.Request) {}
+func (h apiHandler) handleGetUsers(w http.ResponseWriter, r *http.Request)   {
+	users, err := h.q.GetUsers(r.Context())
+	if err != nil {
+		http.Error(w, "something went wrong", http.StatusInternalServerError)
+		slog.Error("failed to get users", "error", err)
+		return
+	}
+
+	if users == nil{
+		users = []pgstore.User{}
+	}
+
+	sendJSON(w, users)
+}

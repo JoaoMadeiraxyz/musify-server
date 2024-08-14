@@ -3,7 +3,6 @@ module github.com/JoaoMadeiraxyz/musify-server
 go 1.23.0
 
 require (
-	github.com/JoaoMadeiraxyz/ask-me-anything-server v0.0.0-20240806165156-579703c06fb3
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/go-chi/cors v1.2.1
 	github.com/google/uuid v1.6.0
