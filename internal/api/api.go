@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/JoaoMadeiraxyz/ask-me-anything-server/internal/store/pgstore"
 	"github.com/JoaoMadeiraxyz/musify-server/internal/store/pgstore"
 
 	"github.com/go-chi/chi/v5"
